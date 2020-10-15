@@ -377,7 +377,7 @@ namespace River
                                             //Console.WriteLine(string.Format("{0}\n{1}", mdi.ipwithport, e1.StackTrace.ToString()));
                                         }
                                         //参照间隔时间Thread.Sleep(20);
-                                        Thread.Sleep(5);
+                                        Thread.Sleep(6);
                                     }
                                 }
                             }
