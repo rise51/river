@@ -1,0 +1,2 @@
+﻿说明
+IPinput:120  consume:40  1000/m   1440000/Day
