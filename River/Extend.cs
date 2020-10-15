@@ -64,14 +64,14 @@ namespace River
             {
                 requestUrl = alRequestUrls.FirstOrDefault();
             }
-            
             List<RequestUrlAndReferer> tempAiRequestUrls = new List<RequestUrlAndReferer>();
             if (ConfigUtls.proxy_rate_open > 0)
             {
-                foreach (var item in ConfigUtls.mda_pv_initInfos)
+                for (int i = 0; i < ConfigUtls.proxy_rate; i++)
                 {
-                    for (int i = 0; i < ConfigUtls.proxy_rate; i++)
+                    foreach (var item in ConfigUtls.mda_pv_initInfos)
                     {
+                        if (string.IsNullOrWhiteSpace(item.mda_pv_init)) continue;
                         ahpplid = GetAhpplid(10);
                         //requesturl = requesturl.Replace("&ahpplid=1596326603158vXrEyx9cl_&", string.Format("&ahpplid={0}&", ahpplid));
                         requestUrl = requestUrl.Replace(item.mda_pv_init_ahpplid, string.Format("%26ahpplid%3d{0}%26", ahpplid));
@@ -80,7 +80,7 @@ namespace River
                         //requesturl = requesturl.Replace("&ahpsign=1204082574&", string.Format("&ahpsign={0}&", outStr));
                         requestUrl = requestUrl.Replace(item.mda_pv_init_ahpsign, string.Format("%26ahpsign%3d{0}%26", outStr));
                         //}
-                        tempAiRequestUrls.Add(new RequestUrlAndReferer() { requesturl = requestUrl, referer=item.mda_pv_init_referer, fvlid = ahpplid });
+                        tempAiRequestUrls.Add(new RequestUrlAndReferer() { requesturl = requestUrl, referer = item.mda_pv_init_referer, fvlid = ahpplid });
                     }
                 }
             }
@@ -88,6 +88,7 @@ namespace River
             {
                 foreach (var item in ConfigUtls.mda_pv_initInfos)
                 {
+                    if (string.IsNullOrWhiteSpace(item.mda_pv_init)) continue;
                     ahpplid = GetAhpplid(10);
                     //requesturl = requesturl.Replace("&ahpplid=1596326603158vXrEyx9cl_&", string.Format("&ahpplid={0}&", ahpplid));
                     requestUrl = requestUrl.Replace(item.mda_pv_init_ahpplid, string.Format("%26ahpplid%3D{0}%26", ahpplid));
@@ -95,10 +96,10 @@ namespace River
                     outStr = outStr.Substring(0, 11);
                     //requesturl = requesturl.Replace("&ahpsign=1204082574&", string.Format("&ahpsign={0}&", outStr));
                     requestUrl = requestUrl.Replace(item.mda_pv_init_ahpsign, string.Format("%26ahpsign%3d{0}%26", outStr));
-                    tempAiRequestUrls.Add(new RequestUrlAndReferer() { requesturl = requestUrl, referer = item.mda_pv_init_referer, fvlid= ahpplid });
+                    tempAiRequestUrls.Add(new RequestUrlAndReferer() { requesturl = requestUrl, referer = item.mda_pv_init_referer, fvlid = ahpplid });
                 }
             }
-            return new IPMetaDataItem() { ipwithport = di.ipwithport, requesturl = requestUrl, requestUrlAndReferers= tempAiRequestUrls, fvlid = ahpplid, outip = di.outip };
+            return new IPMetaDataItem() { ipwithport = di.ipwithport, requesturl = requestUrl, requestUrlAndReferers = tempAiRequestUrls, fvlid = ahpplid, outip = di.outip };
         }
 
         public static string GetAhpplid(int len)
@@ -115,7 +116,7 @@ namespace River
 
             DateTime d = new DateTime();
             //return d.GetTimeStamp(false) + r + "_";
-            return d.GetTimeStamp(false) + r ;
+            return d.GetTimeStamp(false) + r;
         }
 
         /// <summary>  

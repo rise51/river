@@ -97,121 +97,121 @@ namespace River
                 try
                 {
                     #region 芝麻IP
-                    string listStr = Z.WebRequest("http://http.tiqu.alicdns.com/getip3?num=30&type=1&pro=&city=0&yys=0&port=1&pack=110766&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions=&gm=4", "GET", "UTF-8");
-                    if (!string.IsNullOrWhiteSpace(listStr))
-                    {
-
-                        Array temp = listStr.Split('\r');
-                        if (temp != null && temp.Length > 0)
-                        {
-                            foreach (string item in temp)
-                            {
-                                try
-                                {
-
-                                    //符合过滤条件，跳过
-                                    //if (filter != null && filter(publishiId, item)) continue;
-                                    ////if (state != "3") continue;
-                                    //bool notExist = _conQueue.Any(queItem => string.Compare(queItem.ID, publishiId, true) == 0);
-                                    //bool notCache = cache.Any(listItem => string.Compare(listItem, publishiId, true) == 0);
-                                    //if (!notExist && !notCache)
-                                    //{
-                                    //_logger.Info("优信拍抓取列表数据，新增 {0}", item.ToString());
-                                    string tempipwithport = item.Trim('\n').ToString();
-                                    if (string.IsNullOrWhiteSpace(tempipwithport)) continue;
-                                    string ipport = item.Trim('\n').ToString();
-                                    _conQueue.Enqueue(new IPItem()
-                                    {
-                                        ipwithport = ipport,
-                                        outip = ipport.Split(':').FirstOrDefault()
-                                    });
-                                    this.internalSingleton.RequestIpCount++;
-                                    //缓存发布ID
-                                    //    cache.Add(publishiId);
-
-                                    //}
-                                }
-                                catch (Exception e)
-                                {
-                                    //_logger.Error("优信拍抓取列表数据，入队列异常：{0} itme{1}", e, item.ToString());
-                                    continue;
-                                }
-                            }
-                        }
-
-
-                    }
-                    #endregion
-
-                    #region 九元XXIP
-                    //string listStr = Z.WebRequest("http://ip.jiuyuanxx.com/getip?num=150&time=10", "GET", "UTF-8");
+                    //string listStr = Z.WebRequest("http://http.tiqu.alicdns.com/getip3?num=30&type=1&pro=&city=0&yys=0&port=1&pack=110766&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions=&gm=4", "GET", "UTF-8");
                     //if (!string.IsNullOrWhiteSpace(listStr))
                     //{
-                    //    JObject jo = (JObject)JsonConvert.DeserializeObject(listStr);
-                    //    string strData = jo["data"].ToString();
-                    //    if (listStr.Contains("data") && !string.IsNullOrWhiteSpace(strData))
+
+                    //    Array temp = listStr.Split('\r');
+                    //    if (temp != null && temp.Length > 0)
                     //    {
-                    //        JArray jArray = JArray.Parse(strData);
-                    //        if (jArray != null && jArray.Count > 0)
+                    //        foreach (string item in temp)
                     //        {
-                    //            foreach (var item in jArray)
+                    //            try
                     //            {
-                    //                try
-                    //                {
-                    //                    #region 返回结果示例
-                    //                    /*
-                    //                     * {
-                    //                            "code": 0,
-                    //                            "success": true,
-                    //                                "data": [
-                    //                                            {
-                    //                                                "ip": "183.129.206.210",
-                    //                                                 "port": 18010,
-                    //                                                    "expire_time": "2020-10-09 17:04:32",
-                    //                                                    "outip": "117.60.106.122"
-                    //                                                },
-                    //                                            {
-                    //                                                    "ip": "183.129.206.210",
-                    //                                                    "port": 18014,
-                    //                                                     "expire_time": "2020-10-09 17:04:32",
-                    //                                                        "outip": "222.246.229.15"
-                    //                                                            },
-                    //                                                         {
-                    //                                                    "ip": "183.129.206.210",
-                    //                                                    "port": 18012,
-                    //                                                    "expire_time": "2020-10-09 17:04:32",
-                    //                                                        "outip": "139.213.142.151"
-                    //                                                         }
-                    //                                            ]
-                    //                                            }
-                    //                     * 
-                    //                     */
-                    //                    #endregion
 
-                    //                    string ip= ((JObject)item)["ip"].ToString();
-                    //                    string port = ((JObject)item)["port"].ToString();
-                    //                    if (string.IsNullOrWhiteSpace(ip)|| string.IsNullOrWhiteSpace(port)) continue;
-                    //                    _conQueue.Enqueue(new IPItem()
-                    //                    {
-                    //                        ipwithport = string.Format("{0}:{1}",ip,port),
-                    //                        outip= ((JObject)item)["outip"].ToString()
-                    //                    });
-                    //                    this.internalSingleton.RequestIpCount++;
-                    //                    //缓存发布ID
-                    //                    //    cache.Add(publishiId);
-
-                    //                    //}
-                    //                }
-                    //                catch (Exception e)
+                    //                //符合过滤条件，跳过
+                    //                //if (filter != null && filter(publishiId, item)) continue;
+                    //                ////if (state != "3") continue;
+                    //                //bool notExist = _conQueue.Any(queItem => string.Compare(queItem.ID, publishiId, true) == 0);
+                    //                //bool notCache = cache.Any(listItem => string.Compare(listItem, publishiId, true) == 0);
+                    //                //if (!notExist && !notCache)
+                    //                //{
+                    //                //_logger.Info("优信拍抓取列表数据，新增 {0}", item.ToString());
+                    //                string tempipwithport = item.Trim('\n').ToString();
+                    //                if (string.IsNullOrWhiteSpace(tempipwithport)) continue;
+                    //                string ipport = item.Trim('\n').ToString();
+                    //                _conQueue.Enqueue(new IPItem()
                     //                {
-                    //                    //_logger.Error("优信拍抓取列表数据，入队列异常：{0} itme{1}", e, item.ToString());
-                    //                    continue;
-                    //                }
+                    //                    ipwithport = ipport,
+                    //                    outip = ipport.Split(':').FirstOrDefault()
+                    //                });
+                    //                this.internalSingleton.RequestIpCount++;
+                    //                //缓存发布ID
+                    //                //    cache.Add(publishiId);
+
+                    //                //}
+                    //            }
+                    //            catch (Exception e)
+                    //            {
+                    //                //_logger.Error("优信拍抓取列表数据，入队列异常：{0} itme{1}", e, item.ToString());
+                    //                continue;
                     //            }
                     //        }
                     //    }
 
+
                     //}
+                    #endregion
+
+                    #region 中联IP
+                    string listStr = Z.WebRequest("http://ip.jiuyuanxx.com/getip?num=150&time=10", "GET", "UTF-8");
+                    if (!string.IsNullOrWhiteSpace(listStr))
+                    {
+                        JObject jo = (JObject)JsonConvert.DeserializeObject(listStr);
+                        string strData = jo["data"].ToString();
+                        if (listStr.Contains("data") && !string.IsNullOrWhiteSpace(strData))
+                        {
+                            JArray jArray = JArray.Parse(strData);
+                            if (jArray != null && jArray.Count > 0)
+                            {
+                                foreach (var item in jArray)
+                                {
+                                    try
+                                    {
+                                        #region 返回结果示例
+                                        /*
+                                         * {
+                                                "code": 0,
+                                                "success": true,
+                                                    "data": [
+                                                                {
+                                                                    "ip": "183.129.206.210",
+                                                                     "port": 18010,
+                                                                        "expire_time": "2020-10-09 17:04:32",
+                                                                        "outip": "117.60.106.122"
+                                                                    },
+                                                                {
+                                                                        "ip": "183.129.206.210",
+                                                                        "port": 18014,
+                                                                         "expire_time": "2020-10-09 17:04:32",
+                                                                            "outip": "222.246.229.15"
+                                                                                },
+                                                                             {
+                                                                        "ip": "183.129.206.210",
+                                                                        "port": 18012,
+                                                                        "expire_time": "2020-10-09 17:04:32",
+                                                                            "outip": "139.213.142.151"
+                                                                             }
+                                                                ]
+                                                                }
+                                         * 
+                                         */
+                                        #endregion
+
+                                        string ip = ((JObject)item)["ip"].ToString();
+                                        string port = ((JObject)item)["port"].ToString();
+                                        if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(port)) continue;
+                                        _conQueue.Enqueue(new IPItem()
+                                        {
+                                            ipwithport = string.Format("{0}:{1}", ip, port),
+                                            outip = ((JObject)item)["outip"].ToString()
+                                        });
+                                        this.internalSingleton.RequestIpCount++;
+                                        //缓存发布ID
+                                        //    cache.Add(publishiId);
+
+                                        //}
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        //_logger.Error("优信拍抓取列表数据，入队列异常：{0} itme{1}", e, item.ToString());
+                                        continue;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
                     #endregion
                     DelayStrategy();
                 }
@@ -229,7 +229,7 @@ namespace River
         /// </summary>
         private void DelayStrategy()
         {
-            Thread.Sleep(500);
+            Thread.Sleep(8000);
             //try
             //{
             //    string now = DateTime.Now.ToLongTimeString();

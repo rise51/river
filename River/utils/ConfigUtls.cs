@@ -9,6 +9,7 @@ namespace River.utils
 {
     public static class ConfigUtls
     {
+        static List<string> cache;
         public static string mda_pv_init
         {
             get
@@ -331,10 +332,10 @@ namespace River.utils
             new mda_pv_initInfo(){mda_pv_init =mda_pv_init,  mda_pv_init_ahpplid=mda_pv_init_ahpplid, mda_pv_init_ahpsign= mda_pv_init_ahpsign, mda_pv_init_referer= mda_pv_init_referer},
              new mda_pv_initInfo(){mda_pv_init =mda_pv_init1,  mda_pv_init_ahpplid=mda_pv_init_ahpplid1, mda_pv_init_ahpsign= mda_pv_init_ahpsign1, mda_pv_init_referer= mda_pv_init_referer1},
               new mda_pv_initInfo(){mda_pv_init =mda_pv_init2,  mda_pv_init_ahpplid=mda_pv_init_ahpplid2, mda_pv_init_ahpsign= mda_pv_init_ahpsign2, mda_pv_init_referer= mda_pv_init_referer2},
-               new mda_pv_initInfo(){mda_pv_init =mda_pv_init3,  mda_pv_init_ahpplid=mda_pv_init_ahpplid3, mda_pv_init_ahpsign= mda_pv_init_ahpsign3, mda_pv_init_referer= mda_pv_init_referer3},
-                new mda_pv_initInfo(){mda_pv_init =mda_pv_init4,  mda_pv_init_ahpplid=mda_pv_init_ahpplid4, mda_pv_init_ahpsign= mda_pv_init_ahpsign4, mda_pv_init_referer= mda_pv_init_referer4},
-                 new mda_pv_initInfo(){mda_pv_init =mda_pv_init5,  mda_pv_init_ahpplid=mda_pv_init_ahpplid5, mda_pv_init_ahpsign= mda_pv_init_ahpsign5, mda_pv_init_referer= mda_pv_init_referer5},
-                  new mda_pv_initInfo(){mda_pv_init =mda_pv_init6,  mda_pv_init_ahpplid=mda_pv_init_ahpplid6, mda_pv_init_ahpsign= mda_pv_init_ahpsign6, mda_pv_init_referer= mda_pv_init_referer6},
+               //new mda_pv_initInfo(){mda_pv_init =mda_pv_init3,  mda_pv_init_ahpplid=mda_pv_init_ahpplid3, mda_pv_init_ahpsign= mda_pv_init_ahpsign3, mda_pv_init_referer= mda_pv_init_referer3},
+                //new mda_pv_initInfo(){mda_pv_init =mda_pv_init4,  mda_pv_init_ahpplid=mda_pv_init_ahpplid4, mda_pv_init_ahpsign= mda_pv_init_ahpsign4, mda_pv_init_referer= mda_pv_init_referer4},
+                 //new mda_pv_initInfo(){mda_pv_init =mda_pv_init5,  mda_pv_init_ahpplid=mda_pv_init_ahpplid5, mda_pv_init_ahpsign= mda_pv_init_ahpsign5, mda_pv_init_referer= mda_pv_init_referer5},
+                  //new mda_pv_initInfo(){mda_pv_init =mda_pv_init6,  mda_pv_init_ahpplid=mda_pv_init_ahpplid6, mda_pv_init_ahpsign= mda_pv_init_ahpsign6, mda_pv_init_referer= mda_pv_init_referer6},
         };
     }
 

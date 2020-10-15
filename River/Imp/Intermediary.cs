@@ -84,7 +84,8 @@ namespace River
             3、即时抓取车辆数据
              4、队列存储
             */
-            ProcessTradeData();
+            //ProcessTradeData();
+            ProcessTradeDataMulti();
         }
 
         private void ProcessTradeData()
@@ -377,6 +378,7 @@ namespace River
                                         }
 
                                     }
+                                    Thread.Sleep(5);
 
                                 }
                             }
