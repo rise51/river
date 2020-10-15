@@ -346,7 +346,7 @@ namespace River
                 //}
                 if (!string.IsNullOrWhiteSpace(mdi.ipwithport))
                 {
-                    HttpClient httpClient = GetProxyHttpClient(mdi);
+                    HttpClient httpClient = GetProxyHttpClientMulti(mdi);
                     if (ConfigUtls.proxy_rate_open > 0)
                     {
                         if (mdi.requestUrlAndReferers != null && mdi.requestUrlAndReferers.Count > 0)
@@ -625,6 +625,7 @@ namespace River
 
         private void SetCookie(HttpClient httpClient, RequestUrlAndReferer requestUrlAndReferer, IPMetaDataItem mdi)
         {
+            httpClient.DefaultRequestHeaders.Remove("Cookie");
             string cookie = string.Format("fvlid={1}; " +
                 "sessionid=C0B882EA-FEDC-43CA-8E9F-B322F35528C8%7C%7C2020-07-25+12%3A38%3A50.381%7C%7C0; " +
                 "autoid=c933fac8868713f3f0e2d3d4b83f16b0; " +
@@ -634,6 +635,7 @@ namespace River
                 "area=119999; v_no=0; visit_info_ad=C0B882EA-FEDC-43CA-8E9F-B322F35528C8||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref=0%7C0%7C0%7C0%7C2020-08-02+08%3A00%3A14.918%7C2020-07-25+12%3A38%3A50.381"
                 , mdi.ipwithport.Split(':').FirstOrDefault(), requestUrlAndReferer.fvlid);
             httpClient.DefaultRequestHeaders.Add("Cookie", cookie);
+            httpClient.DefaultRequestHeaders.Remove("Referer");
             httpClient.DefaultRequestHeaders.Add("Referer", requestUrlAndReferer.referer);
         }
         #endregion
