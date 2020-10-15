@@ -355,13 +355,13 @@ namespace River
                             {
                                 foreach (var item in mdi.requestUrlAndReferers)
                                 {
-                                    if (item!=null&&!string.IsNullOrWhiteSpace(item.requesturl))
+                                    if (item != null && !string.IsNullOrWhiteSpace(item.requesturl))
                                     {
                                         string httpResult = "";
                                         string tempRequest = HttpUtility.UrlDecode(item.requesturl, System.Text.Encoding.UTF8);
                                         try
                                         {
-                                            SetCookie(httpClient,item,mdi);
+                                            SetCookie(httpClient, item, mdi);
                                             httpClient.GetAsync(tempRequest);
                                             httpResult = "dddd" + httpResult;
                                             this.internalSingleton.RequestCount++;
@@ -376,10 +376,9 @@ namespace River
                                         {
                                             //Console.WriteLine(string.Format("{0}\n{1}", mdi.ipwithport, e1.StackTrace.ToString()));
                                         }
-
+                                        //参照间隔时间Thread.Sleep(20);
+                                        Thread.Sleep(5);
                                     }
-                                    Thread.Sleep(5);
-
                                 }
                             }
                             catch (Exception)
