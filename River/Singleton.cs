@@ -27,6 +27,11 @@ namespace River
         public int RequestIpCount { get; set; }
 
         /// <summary>
+        /// /消耗IP数量
+        /// </summary>
+        public int ConsumerIpCount { get; set; }
+
+        /// <summary>
         /// 开始时间
         /// </summary>
         public DateTime BeginTime { get; set; }

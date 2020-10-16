@@ -102,7 +102,7 @@ namespace River
                         {
                             if (_conQueue.TryDequeue(out di))
                             {
-                                mdi = di.Convert2IPMetaDataItem();
+                                mdi = di.Convert2IPMetaDataItemMulti();
                             }
                         }
                         Task.Run(
@@ -111,7 +111,7 @@ namespace River
                                        taskThreshold++;
                                        try
                                        {
-                                           SpiderProcess(mdi);
+                                           SpiderProcessMulti(mdi);
                                        }
                                        catch (Exception ex1)
                                        {
@@ -365,12 +365,12 @@ namespace River
                                             httpClient.GetAsync(tempRequest);
                                             httpResult = "dddd" + httpResult;
                                             this.internalSingleton.RequestCount++;
-                                            Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/开始时间{3} 结束时间{4}",
+                                            Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
                                                 this.internalSingleton.RequestTotal,
                                                 internalSingleton.RequestCount,
                                                 internalSingleton.RequestIpCount,
                                                 internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff")));
+                                                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),this.internalSingleton.ConsumerIpCount));
                                         }
                                         catch (Exception e1)
                                         {
@@ -386,6 +386,7 @@ namespace River
                             }
                             finally
                             {
+                                this.internalSingleton.ConsumerIpCount++;
                                 httpClient.Dispose();
                                 httpClient = null;
                                 mdi = null;
@@ -411,12 +412,12 @@ namespace River
                                             httpClient.GetAsync(tempRequest);
                                             httpResult = "dddd" + httpResult;
                                             this.internalSingleton.RequestCount++;
-                                            Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/开始时间{3} 结束时间{4}",
-                                                this.internalSingleton.RequestTotal,
-                                                internalSingleton.RequestCount,
-                                                internalSingleton.RequestIpCount,
-                                                internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff")));
+                                            Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                                 this.internalSingleton.RequestTotal,
+                                                 internalSingleton.RequestCount,
+                                                 internalSingleton.RequestIpCount,
+                                                 internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                 DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"), this.internalSingleton.ConsumerIpCount));
                                         }
                                         catch (Exception e1)
                                         {
@@ -432,6 +433,7 @@ namespace River
                             }
                             finally
                             {
+                                this.internalSingleton.ConsumerIpCount++;
                                 httpClient.Dispose();
                                 httpClient = null;
                                 mdi = null;

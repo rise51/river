@@ -48,8 +48,9 @@ namespace River
             //        });
             //}
             #endregion
-            string inputStr = Console.ReadLine();
-            int total = int.Parse(inputStr);
+            //string inputStr = Console.ReadLine();
+            //int total = int.Parse(inputStr);
+            int total = 8000000;
             //Console.WriteLine(total);
             //Console.ReadKey();
             Singleton.Instance.RequestTotal = total;

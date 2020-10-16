@@ -66,7 +66,7 @@ namespace River
 
     }
 
-    public class IPMetaDataItem
+    public class IPMetaDataItem : IDisposable
     {
         /// <summary>
         /// 发布ID
@@ -85,10 +85,43 @@ namespace River
 
         public string fvlid { get; set; }
 
-        
+
         public string outip { get; set; }
 
         public List<RequestUrlAndReferer> requestUrlAndReferers = new List<RequestUrlAndReferer>();
+
+        #region Dispose
+
+        //是否回收完毕
+        bool _disposed;
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this); //标记gc不在调用析构函数
+        }
+        ~IPMetaDataItem()
+        {
+            Dispose(false);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (_disposed) return; //如果已经被回收，就中断执行
+            if (disposing)
+            {
+                //TODO:释放本对象中管理的托管资源
+                this.fvlid = "";
+                this.ipwithport = "";
+                this.outip = "";
+                this.requesturl = "";
+                this.requestUrlAndReferers.Clear();
+                this.requestUrlAndReferers = null;
+                this.requesturls = null;
+            }
+            //TODO:释放非托管资源
+            _disposed = true;
+        }
+        #endregion
 
     }
 
