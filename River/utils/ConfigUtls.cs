@@ -359,4 +359,21 @@ namespace River.utils
 
         public string mda_pv_init_referer { get; set; }
     }
+
+    public static class DidUtils
+    {
+        internal static int YouMayDid()
+        {
+
+            //if(DateTime.Now.)
+            return 1;
+        }
+
+        private static bool IsEffectDate()
+        {
+            //string effectDateTime = "";
+            //DateTime dateTime =DateTime.Now
+            return true;
+        }
+    }
 }

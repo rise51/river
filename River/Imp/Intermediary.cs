@@ -259,13 +259,13 @@ namespace River
                                             httpClient.GetAsync(tempRequest);
                                             httpResult = "dddd" + httpResult;
                                             this.internalSingleton.RequestCount++;
-                                            Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
-                                                 this.internalSingleton.RequestTotal,
-                                                 internalSingleton.RequestCount,
-                                                 internalSingleton.RequestIpCount,
-                                                 internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                 DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                 this.internalSingleton.ConsumerIpCount));
+                                            //Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                            //     this.internalSingleton.RequestTotal,
+                                            //     internalSingleton.RequestCount,
+                                            //     internalSingleton.RequestIpCount,
+                                            //     internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                            //     DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                            //     this.internalSingleton.ConsumerIpCount));
                                         }
                                         catch (Exception e1)
                                         {
@@ -275,6 +275,13 @@ namespace River
                                     }
                                     Thread.Sleep(20);
                                 }
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                                this.internalSingleton.RequestTotal,
+                                                internalSingleton.RequestCount,
+                                                internalSingleton.RequestIpCount,
+                                                internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                this.internalSingleton.ConsumerIpCount));
                             }
                             catch (Exception)
                             {
@@ -284,7 +291,7 @@ namespace River
                                 this.internalSingleton.ConsumerIpCount++;
                                 httpClient.Dispose();
                                 httpClient = null;
-                                mdi.Dispose();
+                                //mdi.Dispose();
                                 mdi = null;
                             }
 
@@ -317,7 +324,7 @@ namespace River
                                 this.internalSingleton.ConsumerIpCount++;
                                 httpClient.Dispose();
                                 httpClient = null;
-                                mdi.Dispose();
+                                //mdi.Dispose();
                                 mdi = null;
                             }
 
@@ -371,13 +378,13 @@ namespace River
                                             httpClient.GetAsync(tempRequest);
                                             httpResult = "dddd" + httpResult;
                                             this.internalSingleton.RequestCount++;
-                                            Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
-                                                this.internalSingleton.RequestTotal,
-                                                internalSingleton.RequestCount,
-                                                internalSingleton.RequestIpCount,
-                                                internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                this.internalSingleton.ConsumerIpCount));
+                                            //Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                            //    this.internalSingleton.RequestTotal,
+                                            //    internalSingleton.RequestCount,
+                                            //    internalSingleton.RequestIpCount,
+                                            //    internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                            //    DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                            //    this.internalSingleton.ConsumerIpCount));
                                         }
                                         catch (Exception e1)
                                         {
@@ -387,6 +394,13 @@ namespace River
                                         Thread.Sleep(6);
                                     }
                                 }
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                                this.internalSingleton.RequestTotal,
+                                                internalSingleton.RequestCount,
+                                                internalSingleton.RequestIpCount,
+                                                internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                this.internalSingleton.ConsumerIpCount));
                             }
                             catch (Exception)
                             {
@@ -419,13 +433,13 @@ namespace River
                                             httpClient.GetAsync(tempRequest);
                                             httpResult = "dddd" + httpResult;
                                             this.internalSingleton.RequestCount++;
-                                            Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
-                                                 this.internalSingleton.RequestTotal,
-                                                 internalSingleton.RequestCount,
-                                                 internalSingleton.RequestIpCount,
-                                                 internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                 DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"), 
-                                                 this.internalSingleton.ConsumerIpCount));
+                                            //Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                            //     this.internalSingleton.RequestTotal,
+                                            //     internalSingleton.RequestCount,
+                                            //     internalSingleton.RequestIpCount,
+                                            //     internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                            //     DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"), 
+                                            //     this.internalSingleton.ConsumerIpCount));
                                         }
                                         catch (Exception e1)
                                         {
@@ -435,6 +449,13 @@ namespace River
                                     }
 
                                 }
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                                 this.internalSingleton.RequestTotal,
+                                                 internalSingleton.RequestCount,
+                                                 internalSingleton.RequestIpCount,
+                                                 internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                 DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                 this.internalSingleton.ConsumerIpCount));
                             }
                             catch (Exception)
                             {
