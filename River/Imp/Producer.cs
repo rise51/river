@@ -229,7 +229,7 @@ namespace River
         /// </summary>
         private void DelayStrategy()
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(5000);
             //try
             //{
             //    string now = DateTime.Now.ToLongTimeString();
