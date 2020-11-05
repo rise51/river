@@ -328,6 +328,56 @@ namespace River.utils
             }
         }
 
+        /// <summary>
+        /// 多刷 >0
+        /// 单刷=0
+        /// </summary>
+        public static int process_multi
+        {
+            get
+            {
+                int result = 0;
+                if (int.TryParse(ConfigurationManager.AppSettings["process_multi"].ToString(), out result))
+                {
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 时间间隔
+        /// before: 单刷 20,多刷 6
+        /// now:单刷 40，多刷 12
+        /// </summary>
+        public static int time_space
+        {
+            get
+            {
+                int result = 20;
+                if (int.TryParse(ConfigurationManager.AppSettings["time_space"].ToString(), out result))
+                {
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 时间间隔
+        /// before: 单刷 20,多刷 6
+        /// now:单刷 40，多刷 12
+        /// </summary>
+        public static int time_space_multi
+        {
+            get
+            {
+                int result = 12;
+                if (int.TryParse(ConfigurationManager.AppSettings["time_space_multi"].ToString(), out result))
+                {
+                }
+                return result;
+            }
+        }
+
         public static List<mda_pv_initInfo> mda_pv_initInfos
         {
             get

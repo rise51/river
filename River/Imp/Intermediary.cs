@@ -84,8 +84,15 @@ namespace River
             3、即时抓取车辆数据
              4、队列存储
             */
-            //ProcessTradeData();
-            ProcessTradeDataMulti();
+            if (ConfigUtls.process_multi > 0)
+            {
+                ProcessTradeDataMulti();
+            }
+            else
+            {
+                ProcessTradeData();
+            }
+            
         }
 
         private void ProcessTradeData()
@@ -273,7 +280,8 @@ namespace River
                                         }
                                         
                                     }
-                                    Thread.Sleep(20);
+                                    //Thread.Sleep(20);
+                                    Thread.Sleep(ConfigUtls.time_space);
                                 }
                                 Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
                                                 this.internalSingleton.RequestTotal,
@@ -391,7 +399,8 @@ namespace River
                                             //Console.WriteLine(string.Format("{0}\n{1}", mdi.ipwithport, e1.StackTrace.ToString()));
                                         }
                                         //参照间隔时间Thread.Sleep(20);
-                                        Thread.Sleep(6);
+                                        //Thread.Sleep(6);
+                                        Thread.Sleep(ConfigUtls.time_space_multi);
                                     }
                                 }
                                 Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",

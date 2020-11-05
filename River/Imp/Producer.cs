@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Autohome.Club.Framework;
+using River.utils;
 
 namespace River
 {
@@ -229,7 +230,15 @@ namespace River
         /// </summary>
         private void DelayStrategy()
         {
-            Thread.Sleep(5000);
+            if (ConfigUtls.process_multi > 0)
+            {
+                Thread.Sleep(5000);
+            }
+            else
+            {
+                Thread.Sleep(4000);
+            }
+         
             //try
             //{
             //    string now = DateTime.Now.ToLongTimeString();
