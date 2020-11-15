@@ -249,6 +249,7 @@ namespace River
             }
             else
             {
+                //默认
                 Thread.Sleep(4000);
             }
 
