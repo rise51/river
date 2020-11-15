@@ -88,6 +88,8 @@ namespace River
 
         public string outip { get; set; }
 
+        public string result { get; set; }
+
         public List<RequestUrlAndReferer> requestUrlAndReferers = new List<RequestUrlAndReferer>();
 
         #region Dispose
@@ -113,6 +115,7 @@ namespace River
                 this.fvlid = "";
                 this.ipwithport = "";
                 this.outip = "";
+                this.result = "";
                 this.requesturl = "";
                 this.requestUrlAndReferers.Clear();
                 this.requestUrlAndReferers = null;

@@ -63,12 +63,12 @@ namespace River
         {
             //Task.Run(() => 
             //{
-                Producer yxpProducer = new Producer("优信拍列表页", listConQueue,this);
-                Intermediary yxpMiddleWorker = new Intermediary("优信拍详情页", listConQueue, detailConQueue,this);
-                Consumer yxpStrorer = new Consumer("优信拍存储", detailConQueue, new DataStorer());
-                yxpProducer.Thread.Start();
-                yxpMiddleWorker.Thread.Start();
-                yxpStrorer.Start();
+            Producer yxpProducer = new Producer("优信拍列表页", listConQueue, this);
+            Intermediary yxpMiddleWorker = new Intermediary("优信拍详情页", listConQueue, detailConQueue, this);
+            Consumer yxpStrorer = new Consumer("优信拍存储", detailConQueue, new DataStorer());
+            yxpProducer.Thread.Start();
+            yxpMiddleWorker.Thread.Start();
+            yxpStrorer.Start();
             //});
         }
     }

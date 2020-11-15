@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using River.utils;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,7 +13,7 @@ namespace River
 {
     public class Consumer : Base<IPMetaDataItem>
     {
-
+        internal static StringBuilder _sb = new StringBuilder();
         protected IStorer _storer/*存储器*/;
         int taskThreshold /*任务个数临界值*/= 0;
         Object objec/*队列取数锁对象*/ = new Object();
@@ -19,7 +21,7 @@ namespace River
         /// <summary>
         /// 批量存储数据个数
         /// </summary>
-        int databatchCount = 10;
+        int databatchCount = 1;
         public int DataBatchCount
         {
             get { return databatchCount; }
@@ -70,36 +72,15 @@ namespace River
                 {
                     try
                     {
-                        //List<YouxinpaiStoreModel> youxinpaiList = new List<YouxinpaiStoreModel>();
-                        //lock (objec)
-                        //{
-                        //    MetaDataItem tempMdi = null;
-                        //    for (int i = 0; i < databatchCount; i++)
-                        //    {
-                        //        if (_conQueue.TryDequeue(out tempMdi))
-                        //        {
-                        //            youxinpaiList.Add(tempMdi.Convert2YouxinipaiModel());
-                        //        }
-                        //    }
-                        //}
-                        //Task.Run(
-                        //                () =>
-                        //                {
-                        //                    taskThreshold++;
-                        //                    try
-                        //                    {
-                        //                        _storer.Save(youxinpaiList);
-                        //                    }
-                        //                    catch (Exception e)
-                        //                    {
-                        //                        //_logger.Error("优信拍 数据持久化任务异常:{0},youxinpaiList{1}", e, JsonConvert.SerializeObject(youxinpaiList));
-                        //                    }
-                        //                    finally
-                        //                    {
-                        //                        taskThreshold--;
-                        //                    }
-                        //                }
-                        //                );
+                        IPMetaDataItem tempMdi = null;
+                        for (int i = 0; i < databatchCount; i++)
+                        {
+                            if (_conQueue.TryDequeue(out tempMdi))
+                            {
+                                _sb.AppendLine(tempMdi.result);
+                            }
+                        }
+                        LogerUtils.WriteLog(_sb.ToString());
                     }
                     catch (Exception ex)
                     {

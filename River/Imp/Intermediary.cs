@@ -199,10 +199,10 @@ namespace River
                     {
                         //_logger.Error("优信拍 抓取主过程 异常：{0}", ex);
                     }
-                    if (internalSingleton.RequestCount == internalSingleton.RequestTotal || internalSingleton.RequestCount > internalSingleton.RequestTotal)
-                    {
-                        Console.ReadKey();
-                    }
+                    //if (internalSingleton.RequestCount == internalSingleton.RequestTotal || internalSingleton.RequestCount > internalSingleton.RequestTotal)
+                    //{
+                    //    Console.ReadKey();
+                    //}
                 }
                 else
                 {
@@ -283,13 +283,23 @@ namespace River
                                     //Thread.Sleep(20);
                                     Thread.Sleep(ConfigUtls.time_space);
                                 }
-                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                string tzResult = "";
+                                //if (DateTime.Now.Minute % 9 == 0)
+                                //{
+                                //    string tempRequest = HttpUtility.UrlDecode("http://wetopic.api.autohome.com.cn/api/test", System.Text.Encoding.UTF8);
+                                //    var response = httpClient.GetAsync(tempRequest).Result;
+                                //    if (response.IsSuccessStatusCode)
+                                //    {
+                                //        tzResult = response.ToString();
+                                //    }
+                                //}
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/队列长度{7}/开始时间{3} 结束时间{4} Result:{6}",
                                                 this.internalSingleton.RequestTotal,
                                                 internalSingleton.RequestCount,
                                                 internalSingleton.RequestIpCount,
                                                 internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
                                                 DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                this.internalSingleton.ConsumerIpCount));
+                                                this.internalSingleton.ConsumerIpCount, tzResult, this._conQueue.Count));
                             }
                             catch (Exception)
                             {
@@ -316,13 +326,13 @@ namespace River
                                 httpClient.GetAsync(tempRequest);
                                 httpResult = "dddd" + httpResult;
                                 this.internalSingleton.RequestCount++;
-                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/队列长度{6}/开始时间{3} 结束时间{4}",
                                                  this.internalSingleton.RequestTotal,
                                                  internalSingleton.RequestCount,
                                                  internalSingleton.RequestIpCount,
                                                  internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
                                                  DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                 this.internalSingleton.ConsumerIpCount));
+                                                 this.internalSingleton.ConsumerIpCount, this._conQueue.Count));
                             }
                             catch (Exception e2)
                             {
@@ -403,13 +413,20 @@ namespace River
                                         Thread.Sleep(ConfigUtls.time_space_multi);
                                     }
                                 }
-                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                if (ConfigUtls.probe_switch > 0&&DateTime.Now.Minute==29 && 28<DateTime.Now.Second && DateTime.Now.Second<31)
+                                {
+                                    string tempRequest = HttpUtility.UrlDecode("http://wetopic.api.autohome.com.cn/api/test", System.Text.Encoding.UTF8);
+                                    var response = httpClient.GetAsync(tempRequest).Result;
+                                    mdi.result = string.Format("Ipport {3} Datetime {2} IsSuccessStatusCode {0} response{1}", response.IsSuccessStatusCode, response.ToString(),DateTime.Now,mdi.ipwithport);
+                                    this._storeQueue.Enqueue(mdi);
+                                }
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/队列长度{6}/开始时间{3} 结束时间{4}",
                                                 this.internalSingleton.RequestTotal,
                                                 internalSingleton.RequestCount,
                                                 internalSingleton.RequestIpCount,
                                                 internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
                                                 DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                this.internalSingleton.ConsumerIpCount));
+                                                this.internalSingleton.ConsumerIpCount,this._conQueue.Count));
                             }
                             catch (Exception)
                             {
@@ -458,13 +475,13 @@ namespace River
                                     }
 
                                 }
-                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/队列长度{6}/开始时间{3} 结束时间{4}",
                                                  this.internalSingleton.RequestTotal,
                                                  internalSingleton.RequestCount,
                                                  internalSingleton.RequestIpCount,
                                                  internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
                                                  DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
-                                                 this.internalSingleton.ConsumerIpCount));
+                                                 this.internalSingleton.ConsumerIpCount,this._conQueue.Count));
                             }
                             catch (Exception)
                             {
@@ -606,7 +623,7 @@ namespace River
                 "sessionip={0}; " +
                 "sessionvid=681B9A1B-2EC5-4194-8437-33DEFB091DEA; " +
                 "area=119999; v_no=0; visit_info_ad=C0B882EA-FEDC-43CA-8E9F-B322F35528C8||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref=0%7C0%7C0%7C0%7C2020-08-02+08%3A00%3A14.918%7C2020-07-25+12%3A38%3A50.381"
-                , mdi.ipwithport.Split(':').FirstOrDefault(), mdi.fvlid);
+                , mdi.outip, mdi.fvlid);
             //string cookie = string.Format("fvlid={1}; " +
             //  "sessionid=C0B882EA-FEDC-43CA-8E9F-B322F35528C8%7C%7C2020-07-25+12%3A38%3A50.381%7C%7C0; " +
             //  "autoid=c933fac8868713f3f0e2d3d4b83f16b0; " +
@@ -646,7 +663,7 @@ namespace River
                 "sessionip={0}; " +
                 "sessionvid=681B9A1B-2EC5-4194-8437-33DEFB091DEA; " +
                 "area=119999; v_no=0; visit_info_ad=C0B882EA-FEDC-43CA-8E9F-B322F35528C8||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref=0%7C0%7C0%7C0%7C2020-08-02+08%3A00%3A14.918%7C2020-07-25+12%3A38%3A50.381"
-                , mdi.ipwithport.Split(':').FirstOrDefault(), mdi.fvlid);
+                , mdi.outip, mdi.fvlid);
             //string cookie = string.Format("fvlid={1}; " +
             //  "sessionid=C0B882EA-FEDC-43CA-8E9F-B322F35528C8%7C%7C2020-07-25+12%3A38%3A50.381%7C%7C0; " +
             //  "autoid=c933fac8868713f3f0e2d3d4b83f16b0; " +
@@ -672,7 +689,7 @@ namespace River
                 "sessionip={0}; " +
                 "sessionvid=681B9A1B-2EC5-4194-8437-33DEFB091DEA; " +
                 "area=119999; v_no=0; visit_info_ad=C0B882EA-FEDC-43CA-8E9F-B322F35528C8||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref=0%7C0%7C0%7C0%7C2020-08-02+08%3A00%3A14.918%7C2020-07-25+12%3A38%3A50.381"
-                , mdi.ipwithport.Split(':').FirstOrDefault(), requestUrlAndReferer.fvlid);
+                , mdi.outip, requestUrlAndReferer.fvlid);
             httpClient.DefaultRequestHeaders.Add("Cookie", cookie);
             httpClient.DefaultRequestHeaders.Remove("Referer");
             httpClient.DefaultRequestHeaders.Add("Referer", requestUrlAndReferer.referer);

@@ -378,6 +378,74 @@ namespace River.utils
             }
         }
 
+        /// <summary>
+        /// 时间间隔
+        /// 生产者生产数据间隔
+        /// 4000ms
+        /// </summary>
+        public static int producer_time_space
+        {
+            get
+            {
+                int result = 4000;
+                if (int.TryParse(ConfigurationManager.AppSettings["producer_time_space"].ToString(), out result))
+                {
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 时间间隔
+        /// 生产队列阀值150，大于就将多出的数据清空
+        /// now:单刷 40，多刷 12
+        /// </summary>
+        public static int producer_queue_count
+        {
+            get
+            {
+                int result = 150;
+                if (int.TryParse(ConfigurationManager.AppSettings["producer_queue_count"].ToString(), out result))
+                {
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 时间间隔
+        /// 是否开启清除队列开关
+        /// 默认不开启
+        /// </summary>
+        public static int producer_queue_take
+        {
+            get
+            {
+                int result = 0;
+                if (int.TryParse(ConfigurationManager.AppSettings["producer_queuetake_switch"].ToString(), out result))
+                {
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 时间间隔
+        /// 是否开启探针开关
+        /// 默认不开启
+        /// </summary>
+        public static int probe_switch
+        {
+            get
+            {
+                int result = 0;
+                if (int.TryParse(ConfigurationManager.AppSettings["probe_switch"].ToString(), out result))
+                {
+                }
+                return result;
+            }
+        }
+
         public static List<mda_pv_initInfo> mda_pv_initInfos
         {
             get

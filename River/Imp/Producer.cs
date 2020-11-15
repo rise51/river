@@ -145,6 +145,17 @@ namespace River
                     #endregion
 
                     #region 中联IP
+                    if (ConfigUtls.producer_queue_take > 0 && _conQueue.Count > ConfigUtls.producer_queue_count)
+                    {
+                        _conQueue.TakeWhile((ipteim) =>
+                        {
+                            if (_conQueue.Count > ConfigUtls.producer_queue_count)
+                            {
+                                return true;
+                            }
+                            else return false;
+                        });
+                    }
                     string listStr = Z.WebRequest("http://ip.jiuyuanxx.com/getip?num=150&time=10", "GET", "UTF-8");
                     if (!string.IsNullOrWhiteSpace(listStr))
                     {
@@ -192,6 +203,7 @@ namespace River
                                         string ip = ((JObject)item)["ip"].ToString();
                                         string port = ((JObject)item)["port"].ToString();
                                         if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(port)) continue;
+                                      
                                         _conQueue.Enqueue(new IPItem()
                                         {
                                             ipwithport = string.Format("{0}:{1}", ip, port),
@@ -210,6 +222,7 @@ namespace River
                                     }
                                 }
                             }
+                           
                         }
 
                     }
@@ -232,13 +245,13 @@ namespace River
         {
             if (ConfigUtls.process_multi > 0)
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(ConfigUtls.producer_time_space);
             }
             else
             {
                 Thread.Sleep(4000);
             }
-         
+
             //try
             //{
             //    string now = DateTime.Now.ToLongTimeString();
