@@ -417,7 +417,7 @@ namespace River
                                 {
                                     string tempRequest = HttpUtility.UrlDecode("http://wetopic.api.autohome.com.cn/api/test", System.Text.Encoding.UTF8);
                                     var response = httpClient.GetAsync(tempRequest).Result;
-                                    mdi.result = string.Format("Ipport {3} Datetime {2} IsSuccessStatusCode {0} response{1}", response.IsSuccessStatusCode, response.ToString(),DateTime.Now,mdi.ipwithport);
+                                    mdi.result = string.Format("Ipport {3} Datetime {2} IsSuccessStatusCode {0} StatusCode{1}", response.IsSuccessStatusCode, response.StatusCode,DateTime.Now,mdi.ipwithport);
                                     this._storeQueue.Enqueue(mdi);
                                 }
                                 Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/队列长度{6}/开始时间{3} 结束时间{4}",
