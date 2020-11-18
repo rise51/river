@@ -70,28 +70,38 @@ namespace River
             {
                 if (_conQueue.Count > databatchCount && taskThreshold < taskMaxScale)
                 {
-                    try
-                    {
-                        IPMetaDataItem tempMdi = null;
-                        for (int i = 0; i < databatchCount; i++)
-                        {
-                            if (_conQueue.TryDequeue(out tempMdi))
-                            {
-                                _sb.AppendLine(tempMdi.result);
-                            }
-                        }
-                        LogerUtils.WriteLog(_sb.ToString());
-                    }
-                    catch (Exception ex)
-                    {
-                        //_logger.Error("优信拍 数据存储主流程异常:{0}", ex);
-                    }
+                    SaveDato2File();
+                }
+                else if (_conQueue.Count > 0)
+                {
+                    SaveDato2File();
                 }
                 else
                 {
                     Thread.Sleep(procInterval);
                 }
             }
+        }
+
+        private void SaveDato2File()
+        {
+            try
+            {
+                IPMetaDataItem tempMdi = null;
+                for (int i = 0; i < databatchCount; i++)
+                {
+                    if (_conQueue.TryDequeue(out tempMdi))
+                    {
+                        _sb.AppendLine(tempMdi.result);
+                    }
+                }
+                LogerUtils.WriteLog(_sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                LogerUtils.WriteLog(string.Format("Consumer>SaveDato2File 异常：{0} stackinfo {1}",ex.Message,ex.StackTrace.ToString()));
+            }
+          
         }
     }
 }
