@@ -88,6 +88,7 @@ namespace River
             try
             {
                 IPMetaDataItem tempMdi = null;
+                _sb.Clear();
                 for (int i = 0; i < databatchCount; i++)
                 {
                     if (_conQueue.TryDequeue(out tempMdi))

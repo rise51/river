@@ -19,6 +19,7 @@ namespace River
         object objec = new object();
         ConcurrentQueue<IPMetaDataItem> _storeQueue;
         static Random random = new Random(15);
+        static Random random1 = new Random(538);
 
         public Singleton internalSingleton;
 
@@ -600,6 +601,7 @@ namespace River
 
         #region 代理
 
+
         /// <summary>
         /// 获取动态代理
         /// </summary>
@@ -636,7 +638,7 @@ namespace River
             httpCient.DefaultRequestHeaders.Add("Cookie", cookie);
             httpCient.DefaultRequestHeaders.Add("Host", "al.autohome.com.cn");
             httpCient.DefaultRequestHeaders.Add("Referer", ConfigUtls.mda_pv_init_referer);
-            httpCient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36");
+            httpCient.DefaultRequestHeaders.Add("User-Agent",string.Format("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.{0}.77 Safari/537.36",3000+ random1.Next()));
             return httpCient;
         }
 
@@ -676,7 +678,7 @@ namespace River
             httpCient.DefaultRequestHeaders.Add("Cookie", cookie);
             httpCient.DefaultRequestHeaders.Add("Host", "al.autohome.com.cn");
             httpCient.DefaultRequestHeaders.Add("Referer", ConfigUtls.mda_pv_init_referer);
-            httpCient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36");
+            httpCient.DefaultRequestHeaders.Add("User-Agent",string.Format("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.{0}.77 Safari/537.36", 3000 + random1.Next()));
             return httpCient;
         }
 
