@@ -1,4 +1,5 @@
-﻿using River.utils;
+﻿using Autohome.Club.Framework;
+using River.utils;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace River
         ConcurrentQueue<IPMetaDataItem> _storeQueue;
         static Random random = new Random(15);
         static Random random1 = new Random(538);
+        string guidStr = "C0B882EA-FEDC-43CA-8E9F-B322F35528C8";
+        string guidStr1 = "";
 
         public Singleton internalSingleton;
 
@@ -66,6 +69,7 @@ namespace River
         {
             _storeQueue = outputConQueue;
             internalSingleton = singleton;
+            guidStr = Guid.NewGuid().ToString().ToUpper();
             if (ConfigUtls.intermediary_taskscale > 0)
             {
                 this.taskScale = ConfigUtls.intermediary_taskscale;
@@ -659,14 +663,23 @@ namespace River
             httpCient.DefaultRequestHeaders.Add("Accept", "image/webp,image/apng,image/*,*/*;q=0.8");
             httpCient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
             httpCient.DefaultRequestHeaders.Add("Accept-Language", "zh-CN,zh;q=0.9");
+
+            ////string guidStr = Guid.NewGuid().ToString().ToUpper();
+            ////string guidStr1 = Guid.NewGuid().ToString().ToUpper();
+            //string dateTime = DateTime.Now.AddDays(-random.Next(10)).ToString();
             //string cookie = string.Format("fvlid={1}; " +
-            //    "sessionid=C0B882EA-FEDC-43CA-8E9F-B322F35528C8%7C%7C2020-07-25+12%3A38%3A50.381%7C%7C0; " +
-            //    "autoid=c933fac8868713f3f0e2d3d4b83f16b0; " +
-            //    "ahpau=1; __ah_uuid_ng=c_C0B882EA-FEDC-43CA-8E9F-B322F35528C8; " +
+            //    "sessionid={2}{6} " +
+            //    "autoid={7}; " +
+            //    "ahpau=1; __ah_uuid_ng=c_{3}; " +
             //    "sessionip={0}; " +
             //    "sessionvid=681B9A1B-2EC5-4194-8437-33DEFB091DEA; " +
-            //    "area=119999; v_no=0; visit_info_ad=C0B882EA-FEDC-43CA-8E9F-B322F35528C8||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref=0%7C0%7C0%7C0%7C2020-08-02+08%3A00%3A14.918%7C2020-07-25+12%3A38%3A50.381"
-            //    , mdi.outip, mdi.fvlid);
+            //    "area=119999; v_no=0; visit_info_ad={4}||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref={5}"
+            //    , mdi.outip, mdi.fvlid,
+            //    this.guidStr, this.guidStr, this.guidStr,
+            //    HttpUtility.UrlEncode(string.Format("0|0|0|0|{0}|{1}", DateTime.Now.ToString(), dateTime))
+            //    , HttpUtility.UrlEncode(string.Format("||{0}||0; ", dateTime)),
+            //    Z.GetMD5LowerString(this.guidStr)
+            //    );
             //string cookie = string.Format("fvlid={1}; " +
             //  "sessionid=C0B882EA-FEDC-43CA-8E9F-B322F35528C8%7C%7C2020-07-25+12%3A38%3A50.381%7C%7C0; " +
             //  "autoid=c933fac8868713f3f0e2d3d4b83f16b0; " +
@@ -694,6 +707,24 @@ namespace River
         private void SetCookie(HttpClient httpClient, RequestUrlAndReferer requestUrlAndReferer, IPMetaDataItem mdi)
         {
             httpClient.DefaultRequestHeaders.Remove("Cookie");
+
+            ////string guidStr = Guid.NewGuid().ToString().ToUpper();
+            ////string guidStr1 = Guid.NewGuid().ToString().ToUpper();
+            //string dateTime = DateTime.Now.AddDays(-random.Next(10)).ToString();
+            //string cookie = string.Format("fvlid={1}; " +
+            //    "sessionid={2}{6} " +
+            //    "autoid={7}; " +
+            //    "ahpau=1; __ah_uuid_ng=c_{3}; " +
+            //    "sessionip={0}; " +
+            //    "sessionvid=681B9A1B-2EC5-4194-8437-33DEFB091DEA; " +
+            //    "area=119999; v_no=0; visit_info_ad={4}||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref={5}"
+            //    , mdi.outip, mdi.fvlid,
+            //    this.guidStr, this.guidStr, this.guidStr,
+            //    HttpUtility.UrlEncode(string.Format("0|0|0|0|{0}|{1}", DateTime.Now.ToString(), dateTime))
+            //    , HttpUtility.UrlEncode(string.Format("||{0}||0; ", dateTime)),
+            //    Z.GetMD5LowerString(this.guidStr)
+            //    );
+
             //string cookie = string.Format("fvlid={1}; " +
             //    "sessionid=C0B882EA-FEDC-43CA-8E9F-B322F35528C8%7C%7C2020-07-25+12%3A38%3A50.381%7C%7C0; " +
             //    "autoid=c933fac8868713f3f0e2d3d4b83f16b0; " +
