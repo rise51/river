@@ -708,7 +708,7 @@ namespace River
         {
             httpClient.DefaultRequestHeaders.Remove("Cookie");
 
-            ////string guidStr = Guid.NewGuid().ToString().ToUpper();
+            //this.guidStr = Guid.NewGuid().ToString().ToUpper();
             ////string guidStr1 = Guid.NewGuid().ToString().ToUpper();
             //string dateTime = DateTime.Now.AddDays(-random.Next(10)).ToString();
             //string cookie = string.Format("fvlid={1}; " +
