@@ -16,3 +16,5 @@
 /Broswer/bin/x86/Release
 /Broswer/bin/x86/Debug
 /Broswer/bin
+/IpPool/bin
+/IpPool/obj
