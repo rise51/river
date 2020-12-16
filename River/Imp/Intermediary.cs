@@ -707,7 +707,9 @@ namespace River
                 Z.GetMD5LowerString(this.guidStr),this.guidStr1,this.guidStr1,
                 cityareas[random2.Next(3293)]
                 );
-
+            #region 出流量策略
+            //如有问题更换  guidStr 和 guidStr1  为最新未登录的值；调整proxy_rate:30,time_space_multi:3
+            #endregion
             //string cookie = string.Format("fvlid={1}; " +
             //   "sessionid=EC51C026-F4BB-4AB0-9872-993F6CFF34A8%7C%7C2020-10-14+18%3A20%3A47.654%7C%7C0; " +
             //   "autoid=31bf984e655c9fe48f14c7176521ee08; " +
