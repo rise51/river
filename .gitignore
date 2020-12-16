@@ -10,3 +10,9 @@
 /ConfigTools/obj
 /ConfigTools/bin/Release
 /ConfigTools/bin/Debug
+/Broswer/obj/x86/Debug
+/Broswer/obj/Release
+/Broswer/obj
+/Broswer/bin/x86/Release
+/Broswer/bin/x86/Debug
+/Broswer/bin
