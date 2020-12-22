@@ -24,6 +24,22 @@ namespace River
         static Random random2 = new Random(3293);
         string guidStr = "EC51C026-F4BB-4AB0-9872-993F6CFF34A8";
         string guidStr1 = "52CD437F-1054-4AD5-A7F4-345B803C41AA";
+        GuidMapper[] guidMapper = new GuidMapper[] {
+            new GuidMapper(){ guid="EC51C026-F4BB-4AB0-9872-993F6CFF34A8",guid1="52CD437F-1054-4AD5-A7F4-345B803C41AA"},
+            new GuidMapper(){ guid="633BA35B-8163-4E8F-A9B5-8CC19CC5DC30",guid1="ED45C0B4-14DB-48C2-8214-10198263E503"},
+            new GuidMapper(){ guid="EC51C026-F4BB-4AB0-9872-993F6CFF34A8",guid1="2B52B9C2-0697-4014-A648-2A006F2A014B"},
+            new GuidMapper(){ guid="06104009-FAC0-4562-A83B-58DA8626DA1A",guid1="69468F9B-0DD3-460C-865D-7F481C9E66F5"},
+            new GuidMapper(){ guid="B636EDDC-8C45-4701-8865-AA5AB4FC634A",guid1="E7681A6C-F535-4B3F-9225-AF2E854396FD"},
+            new GuidMapper(){ guid="5B599ABD-23BB-4804-BABE-3E85C38FAF45",guid1="0F3206F4-7D85-4EDB-AEB7-27E4EEC11EDF"},
+            new GuidMapper(){ guid="32B38BAF-E56E-451C-B31C-E0449AC02965",guid1="C73D0DE3-DEA3-4CBB-901C-C6673359B1AB"},
+            new GuidMapper(){ guid="2E98E588-793D-4F90-89E6-375C48812CC0",guid1="AF8C446B-FECA-4D96-8086-9EE29E7C3FD2"},
+        };
+        string[] broswer = new string[] {
+            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.{0}.77 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0 {0}",
+            "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4{0}.67 Mobile Safari/537.36 Edg/87.0.664.55",
+            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3{0}.400 QQBrowser/10.6.4208.400"
+        };
 
         public Singleton internalSingleton;
 
@@ -4086,5 +4102,12 @@ namespace River
 999900,
 
         };
+    }
+
+    public class GuidMapper
+    {
+        public string guid { get; set; }
+
+        public string guid1 { get; set; }
     }
 }
