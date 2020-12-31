@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Broswer", "Broswer\Broswer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IpPool", "IpPool\IpPool.csproj", "{2067EEC4-BA91-4B3C-AD8E-790795725B39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pegasus", "Pegasus\Pegasus.csproj", "{4472859A-C0D4-4E6C-918E-4F526FA2D35F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{2067EEC4-BA91-4B3C-AD8E-790795725B39}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2067EEC4-BA91-4B3C-AD8E-790795725B39}.Release|x86.ActiveCfg = Release|Any CPU
 		{2067EEC4-BA91-4B3C-AD8E-790795725B39}.Release|x86.Build.0 = Release|Any CPU
+		{4472859A-C0D4-4E6C-918E-4F526FA2D35F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4472859A-C0D4-4E6C-918E-4F526FA2D35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4472859A-C0D4-4E6C-918E-4F526FA2D35F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4472859A-C0D4-4E6C-918E-4F526FA2D35F}.Debug|x86.Build.0 = Debug|Any CPU
+		{4472859A-C0D4-4E6C-918E-4F526FA2D35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4472859A-C0D4-4E6C-918E-4F526FA2D35F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4472859A-C0D4-4E6C-918E-4F526FA2D35F}.Release|x86.ActiveCfg = Release|Any CPU
+		{4472859A-C0D4-4E6C-918E-4F526FA2D35F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,7 +10,7 @@ using System.Web;
 using Autohome.Club.Framework;
 using Pegasus.utils;
 
-namespace River
+namespace Pegasus
 {
     public class Producer : Base<IPItem>
     {

@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace River
+namespace Pegasus
 {
     public class Consumer : Base<IPMetaDataItem>
     {

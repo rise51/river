@@ -6,9 +6,9 @@ using System.Linq;
 using System.Web;
 using Pegasus.utils;
 
-namespace River
+namespace Pegasus
 {
-    public static class RiverExtensions
+    public static class PegasusExtensions
     {
 
 
