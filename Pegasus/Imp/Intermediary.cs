@@ -108,7 +108,7 @@ namespace Pegasus
             */
             if (ConfigUtls.process_multi > 0)
             {
-                ProcessTradeDataMulti();
+                ProcessTradeDataPegasus();
             }
             else
             {
@@ -199,6 +199,64 @@ namespace Pegasus
                                        try
                                        {
                                            SpiderProcessMulti(mdi);
+                                       }
+                                       catch (Exception ex1)
+                                       {
+                                           //_logger.Error("优信拍 数据抓取任务异常：{0} mdi{1}", ex1, JsonConvert.SerializeObject(mdi));
+                                       }
+                                       finally
+                                       {
+                                           taskThreshold--;
+                                       }
+                                   }
+                                   );
+                        //Thread.Sleep(30);
+                        if (ConfigUtls.proxy_rate_open == 0)
+                        {
+                            Thread.Sleep(random.Next(30));
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        //_logger.Error("优信拍 抓取主过程 异常：{0}", ex);
+                    }
+                    //if (internalSingleton.RequestCount == internalSingleton.RequestTotal || internalSingleton.RequestCount > internalSingleton.RequestTotal)
+                    //{
+                    //    Console.ReadKey();
+                    //}
+                }
+                else
+                {
+                    Thread.Sleep(procInterval);
+                }
+            }
+        }
+
+        private void ProcessTradeDataPegasus()
+        {
+            while (true)
+            {
+                if (_conQueue.Count > 0 && taskThreshold < taskScale)
+                {
+                    try
+                    {
+                        IPMetaDataItem mdi = null;
+                        IPItem di = null;
+                        lock (objec)
+                        {
+                            if (_conQueue.TryDequeue(out di))
+                            {
+                                mdi = di.Convert2IPMetaDataItemMulti();
+                            }
+                        }
+                        Task.Run(
+                                   () =>
+                                   {
+                                       taskThreshold++;
+                                       try
+                                       {
+                                           SpiderProcessPegasus(mdi);
                                        }
                                        catch (Exception ex1)
                                        {
@@ -524,6 +582,158 @@ namespace Pegasus
             }
         }
 
+        private void SpiderProcessPegasus(IPMetaDataItem mdi)
+        {
+            if (mdi != null)
+            {
+                if (string.IsNullOrWhiteSpace(mdi.ipwithport) || mdi.ipwithport.Contains("{"))
+                {
+                    return;
+                }
+                //string proxy = mdi.ipwithport;
+                //RefreshIESettings(proxy);
+                //IEProxy ie = new IEProxy(proxy);
+                //browser.RequestWeb(mdi.requesturl);
+                //if (GatherTradeData(mdi, null))
+                //{
+                //    GatherCarData(mdi, null);
+                //    _storeQueue.Enqueue(mdi);
+                //
+                //if (internalSingleton.RequestIpCount > internalSingleton.RequestTotal &&
+                //        (_conQueue.Count == 0))
+                //{
+                //    return;
+                //}
+                if (!string.IsNullOrWhiteSpace(mdi.ipwithport))
+                {
+                    HttpClient httpClient = GetProxyHttpClientPegasus(mdi);
+                    if (ConfigUtls.proxy_rate_open > 0)
+                    {
+                        //if (mdi.requestUrlAndReferers != null && mdi.requestUrlAndReferers.Count > 0)
+                        //{
+                            try
+                            {
+                            //foreach (var item in mdi.requestUrlAndReferers)
+                            //{
+                            //if (item != null && !string.IsNullOrWhiteSpace(item.requesturl))
+                            //{
+                            string request = string.Format(@"https://log.m.sm.cn/0.gif?pt=dl_shichang_mingzhenhuati&hid=76514d6eedf163f0a6fbb43704c837c4&sid=76514d6eedf163f0a6fbb43704c837c4&ip={0}&qt=1609375192&l=2&c=634424&from=kk%40quark_mingzhentopic_11&cp=main&ext=name:index_share;&log_type=2",
+                                mdi.outip);
+                               
+                                        string httpResult = "";
+                                        string tempRequest = HttpUtility.UrlDecode(request, System.Text.Encoding.UTF8);
+                                        try
+                                        {
+                                            //SetCookie(httpClient, item, mdi);
+                                            httpClient.PostAsync(tempRequest,null);
+                                            httpResult = "dddd" + httpResult;
+                                            this.internalSingleton.RequestCount++;
+                                            //Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                            //    this.internalSingleton.RequestTotal,
+                                            //    internalSingleton.RequestCount,
+                                            //    internalSingleton.RequestIpCount,
+                                            //    internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                            //    DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                            //    this.internalSingleton.ConsumerIpCount));
+                                        }
+                                        catch (Exception e1)
+                                        {
+                                            //Console.WriteLine(string.Format("{0}\n{1}", mdi.ipwithport, e1.StackTrace.ToString()));
+                                        }
+                                        //参照间隔时间Thread.Sleep(20);
+                                        //Thread.Sleep(6);
+                                        Thread.Sleep(ConfigUtls.time_space_multi);
+                                    //}
+                                //}
+                                //if (ConfigUtls.probe_switch > 0 && DateTime.Now.Minute == 29 && 28 < DateTime.Now.Second && DateTime.Now.Second < 31)
+                                //{
+                                //    string tempRequest = HttpUtility.UrlDecode("http://wetopic.api.autohome.com.cn/api/test", System.Text.Encoding.UTF8);
+                                //    var response = httpClient.GetAsync(tempRequest).Result;
+                                //    mdi.result = string.Format("Ipport {3} -{4} Datetime {2} IsSuccessStatusCode {0} StatusCode {1}"
+                                //        , response.IsSuccessStatusCode, response.StatusCode, DateTime.Now, mdi.ipwithport, mdi.outip);
+                                //    this._storeQueue.Enqueue(mdi);
+                                //}
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/队列长度{6}/开始时间{3} 结束时间{4}",
+                                                this.internalSingleton.RequestTotal,
+                                                internalSingleton.RequestCount,
+                                                internalSingleton.RequestIpCount,
+                                                internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                this.internalSingleton.ConsumerIpCount, this._conQueue.Count));
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            finally
+                            {
+                                this.internalSingleton.ConsumerIpCount++;
+                                httpClient.Dispose();
+                                httpClient = null;
+                                mdi = null;
+                            }
+
+                        //}
+                    }
+                    else
+                    {
+                        if (mdi.requestUrlAndReferers != null && mdi.requestUrlAndReferers.Count > 0)
+                        {
+                            try
+                            {
+                                foreach (var item in mdi.requestUrlAndReferers)
+                                {
+                                    if (item != null && !string.IsNullOrWhiteSpace(item.requesturl))
+                                    {
+                                        string httpResult = "";
+                                        string tempRequest = HttpUtility.UrlDecode(item.requesturl, System.Text.Encoding.UTF8);
+                                        try
+                                        {
+                                            SetCookie(httpClient, item, mdi);
+                                            httpClient.GetAsync(tempRequest);
+                                            httpResult = "dddd" + httpResult;
+                                            this.internalSingleton.RequestCount++;
+                                            //Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/开始时间{3} 结束时间{4}",
+                                            //     this.internalSingleton.RequestTotal,
+                                            //     internalSingleton.RequestCount,
+                                            //     internalSingleton.RequestIpCount,
+                                            //     internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                            //     DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"), 
+                                            //     this.internalSingleton.ConsumerIpCount));
+                                        }
+                                        catch (Exception e1)
+                                        {
+                                            //Console.WriteLine(string.Format("{0}\n{1}", mdi.ipwithport, e1.StackTrace.ToString()));
+                                        }
+
+                                    }
+
+                                }
+                                Console.WriteLine(string.Format("*执行总数totalCount:{0}/{1}当前执行数量 /获取资源数量{2}/消耗资源数量{5}/队列长度{6}/开始时间{3} 结束时间{4}",
+                                                 this.internalSingleton.RequestTotal,
+                                                 internalSingleton.RequestCount,
+                                                 internalSingleton.RequestIpCount,
+                                                 internalSingleton.BeginTime.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                 DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss fff"),
+                                                 this.internalSingleton.ConsumerIpCount, this._conQueue.Count));
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            finally
+                            {
+                                this.internalSingleton.ConsumerIpCount++;
+                                httpClient.Dispose();
+                                httpClient = null;
+                                mdi = null;
+                            }
+
+                        }
+                    }
+                }
+
+            }
+        }
+
         #region 代理IP
         public struct Struct_INTERNET_PROXY_INFO
         {
@@ -738,6 +948,85 @@ namespace Pegasus
             httpCient.DefaultRequestHeaders.Add("Host", "al.autohome.com.cn");
             httpCient.DefaultRequestHeaders.Add("Referer", ConfigUtls.mda_pv_init_referer);
             httpCient.DefaultRequestHeaders.Add("User-Agent",string.Format("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.{0}.77 Safari/537.36", 3000 + random1.Next()));
+            return httpCient;
+        }
+
+        /// <summary>
+        /// 获取动态代理
+        /// </summary>
+        /// <param name="proxyIPport"></param>
+        /// <returns></returns>
+        private HttpClient GetProxyHttpClientPegasus(IPMetaDataItem mdi)
+        {
+            var proxy = new WebProxy(string.Format("http://{0}", mdi.ipwithport));
+            HttpClientHandler httpClientHandler = new HttpClientHandler()
+            {
+                Proxy = proxy
+            };
+            var httpCient = new HttpClient(httpClientHandler);
+            // 增加头部
+            httpCient.DefaultRequestHeaders.Add("Accept", "*/*");
+            httpCient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
+            httpCient.DefaultRequestHeaders.Add("Accept-Language", "zh-CN,zh;q=0.9");
+
+            ////string guidStr = Guid.NewGuid().ToString().ToUpper();
+            ////string guidStr1 = Guid.NewGuid().ToString().ToUpper();
+            //string dateTime = DateTime.Now.AddDays(-random.Next(10)).ToString();
+            //string cookie = string.Format("fvlid={1}; " +
+            //    "sessionid={2}{6} " +
+            //    "autoid={7}; " +
+            //    "ahpau=1; __ah_uuid_ng=c_{3}; " +
+            //    "sessionip={0}; " +
+            //    "sessionvid=681B9A1B-2EC5-4194-8437-33DEFB091DEA; " +
+            //    "area=119999; v_no=0; visit_info_ad={4}||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref={5}"
+            //    , mdi.outip, mdi.fvlid,
+            //    this.guidStr, this.guidStr, this.guidStr,
+            //    HttpUtility.UrlEncode(string.Format("0|0|0|0|{0}|{1}", DateTime.Now.ToString(), dateTime))
+            //    , HttpUtility.UrlEncode(string.Format("||{0}||0; ", dateTime)),
+            //    Z.GetMD5LowerString(this.guidStr)
+            //    );
+            //string cookie = string.Format("fvlid={1}; " +
+            //  "sessionid=C0B882EA-FEDC-43CA-8E9F-B322F35528C8%7C%7C2020-07-25+12%3A38%3A50.381%7C%7C0; " +
+            //  "autoid=c933fac8868713f3f0e2d3d4b83f16b0; " +
+            //  "ahpau=1; __ah_uuid_ng=c_C0B882EA-FEDC-43CA-8E9F-B322F35528C8; " +
+            //  "sessionip={0}; " +
+            //  "sessionvid=681B9A1B-2EC5-4194-8437-33DEFB091DEA; " +
+            //  "area=119999; v_no=0; visit_info_ad=C0B882EA-FEDC-43CA-8E9F-B322F35528C8||681B9A1B-2EC5-4194-8437-33DEFB091DEA||-1||-1||4; ref=0%7C0%7C0%7C0%7C2020-08-02+08%3A00%3A14.918%7C2020-07-25+12%3A38%3A50.381"
+            //  , mdi.outip, mdi.fvlid);
+
+            //this.guidStr = Guid.NewGuid().ToString().ToUpper();
+            //string guidStr1 = Guid.NewGuid().ToString().ToUpper();
+            string dateTime = DateTime.Now.AddDays(-random.Next(10)).ToString();
+            //string cookie = string.Format("fvlid={1}; " +
+            //    "sessionid={2}{6} " +
+            //    "autoid={7}; " +
+            //    "ahpau=1; __ah_uuid_ng=c_{3}; " +
+            //    "sessionip={0}; " +
+            //    "sessionvid={8}; " +
+            //    "area={10}; v_no=1; visit_info_ad={4}||{9}||-1||-1||1; ref={5}"
+            //    , mdi.outip, mdi.fvlid,
+            //    this.guidStr, this.guidStr, this.guidStr,
+            //    HttpUtility.UrlEncode(string.Format("0|0|0|0|{0}|{1}", DateTime.Now.ToString(), dateTime))
+            //    , HttpUtility.UrlEncode(string.Format("||{0}||0; ", dateTime)),
+            //    Z.GetMD5LowerString(this.guidStr), this.guidStr1, this.guidStr1,
+            //    cityareas[random2.Next(3293)]
+            //    );
+            string cookie = "sm_diu=d511d92ecd2fcc63edaa1c7cd4066f3d%7C%7C11eef1ee4efd303772%7C1609310502";
+            #region 出流量策略
+            //如有问题更换  guidStr 和 guidStr1  为最新未登录的值；调整proxy_rate:30,time_space_multi:3
+            #endregion
+            //string cookie = string.Format("fvlid={1}; " +
+            //   "sessionid=EC51C026-F4BB-4AB0-9872-993F6CFF34A8%7C%7C2020-10-14+18%3A20%3A47.654%7C%7C0; " +
+            //   "autoid=31bf984e655c9fe48f14c7176521ee08; " +
+            //   "ahpau=1; __ah_uuid_ng=c_EC51C026-F4BB-4AB0-9872-993F6CFF34A8; " +
+            //   "sessionip={0}; " +
+            //   "sessionvid=52CD437F-1054-4AD5-A7F4-345B803C41AA; " +
+            //   "area=330199; v_no=1; visit_info_ad=EC51C026-F4BB-4AB0-9872-993F6CFF34A8||52CD437F-1054-4AD5-A7F4-345B803C41AA||-1||-1||1; ref=0%7C0%7C0%7C0%7C2020-12-13+15%3A16%3A28.794%7C2020-10-14+18%3A20%3A47.654"
+            //   , mdi.outip, mdi.fvlid);
+            httpCient.DefaultRequestHeaders.Add("Cookie", cookie);
+            httpCient.DefaultRequestHeaders.Add("Host", "log.m.sm.cn");
+            httpCient.DefaultRequestHeaders.Add("Referer", "https://quark.sm.cn/");
+            httpCient.DefaultRequestHeaders.Add("User-Agent", string.Format("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.{0}.77 Safari/537.36", 3000 + random1.Next()));
             return httpCient;
         }
 
